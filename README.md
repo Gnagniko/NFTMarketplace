@@ -1,4 +1,4 @@
-# nft-marketplace-starter-kit
+# nft-marketplace
 Please run npm install on the terminal to download the appropriate packages already defined to the package.json file. 
 Make sure you are in the source file. 
 
