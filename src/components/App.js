@@ -17,17 +17,12 @@ class App extends Component {
     
     async loadWeb3(){
         // first up is to detect ethereum provider (metamask)
-        const provider = await detectEthereumProvider();
+        await window.ethereum.enable();
 
-        if (provider === window.ethereum) {
+          if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
-            console.log('ethereum wallet is connected')
-          } else if (provider === window.web3) {
+          } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
-            console.log('ethereum wallet is connected')
-          } else {
-            // no ethereum provider 
-            console.log('no ehtereum wallet detected')
           }
 
           // if accounts changed load new Blockchain Data
@@ -44,7 +39,7 @@ class App extends Component {
 
         window.web3 = new Web3(window.ethereum)
         const web3 = window.web3
-        let accounts = await window.web3.eth.getAccounts()
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         console.log(accounts[0])
         this.setState({account: accounts[0]})
         console.log('in line 41 after account address')
@@ -94,6 +89,25 @@ class App extends Component {
             kryptoBirdz:[]
         }
     }
+
+    /*
+    async checkChain(){
+        // rinkeby chainId=4 , polygon chainId=137  
+        let chainId = 4;
+
+        if (window.ethereum.networkVersion !== chainId) {
+            try {
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: web3.utils.toHex(chainId) }],
+              });
+              this.loadBlockchainData();
+            } catch (err) {
+                // This error code indicates that the chain has not been added to MetaMask
+                console.log("Chain has not been add to MetaMask")
+            }
+        } 
+    }*/
 
     render(){
         return (
