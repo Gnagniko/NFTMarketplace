@@ -34,9 +34,8 @@ class App extends Component {
     }
 
     async loadBlockchainData() {
-        const onboarding = new MetaMaskOnboarding();
         const web3 = window.web3
-        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
 
         console.log(accounts[0])
         this.setState({account: accounts[0]})
