@@ -37,7 +37,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ninterface IERC721Metadata{\r\n    /// @notice A descriptive name for a collection of NFTs in this contract\r\n    function name() external view returns (string memory _name);\r\n\r\n    /// @notice An abbreviated name for NFTs in this contract\r\n    function symbol() external view returns (string memory _symbol);\r\n\r\n    // function tokenURI(uint256 _tokenId) external view returns (string);\r\n}",
-  "sourcePath": "C:\\Users\\Tino\\Desktop\\workspace\\nft-marketplace-starter-kit\\src\\contracts\\interfaces\\IERC721Metadata.sol",
+  "sourcePath": "C:\\Users\\Tino\\Desktop\\workspace\\projects\\NFTMarketplace\\src\\contracts\\interfaces\\IERC721Metadata.sol",
   "ast": {
     "absolutePath": "project:/src/contracts/interfaces/IERC721Metadata.sol",
     "exportedSymbols": {
@@ -378,7 +378,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.6",
-  "updatedAt": "2022-03-21T20:08:10.965Z",
+  "updatedAt": "2022-03-31T14:40:30.133Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

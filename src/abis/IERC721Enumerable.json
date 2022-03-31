@@ -67,7 +67,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ninterface IERC721Enumerable /* is ERC721 */ {\r\n\r\n    function totalSupply() external view returns (uint256);\r\n\r\n    function tokenByIndex(uint256 _index) external view returns (uint256);\r\n\r\n    function tokenOfOwnerByIndex(address _owner, uint256 _index) external view returns (uint256);\r\n}",
-  "sourcePath": "C:\\Users\\Tino\\Desktop\\workspace\\nft-marketplace-starter-kit\\src\\contracts\\interfaces\\IERC721Enumerable.sol",
+  "sourcePath": "C:\\Users\\Tino\\Desktop\\workspace\\projects\\NFTMarketplace\\src\\contracts\\interfaces\\IERC721Enumerable.sol",
   "ast": {
     "absolutePath": "project:/src/contracts/interfaces/IERC721Enumerable.sol",
     "exportedSymbols": {
@@ -662,7 +662,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.6",
-  "updatedAt": "2022-03-21T20:08:10.963Z",
+  "updatedAt": "2022-03-31T14:40:30.126Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

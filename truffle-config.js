@@ -23,6 +23,10 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
+// https://ropsten.infura.io/v3/7a3e69e4622c4737ab5d1de8c44ee6a3
+
+var HDWalletProvider = require("truffle-hdwallet-provider");
+var mnemonic = "iron nuclear damage maze reveal feature table napkin very ostrich spoil cushion";
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -46,6 +50,23 @@ module.exports = {
       port: 7545,            // Standard Ethereum port (default: none)
       network_id: "*",       // Any network (default: none)
     },
+    rinkeby: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, 
+          "https://rinkeby.infura.io/v3/3456721dec9248518dbbd4b293193046");
+      },
+      network_id: 4,
+      gas: 4500000,
+      gasPrice: 10000000000,
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, 
+          "https://ropsten.infura.io/v3/7a3e69e4622c4737ab5d1de8c44ee6a3");
+      },
+      network_id: 3,
+      gas: 4000000,
+    }
   
   },
 
