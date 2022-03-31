@@ -17,12 +17,11 @@ class App extends Component {
     
     async loadWeb3(){
         // first up is to detect ethereum provider (metamask)
-        await window.ethereum.enable();
 
           if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
-          } else if (window.web3) {
-            window.web3 = new Web3(window.web3.currentProvider);
+          } else {
+              console.log("could not connect to metamask")
           }
 
           // if accounts changed load new Blockchain Data
@@ -36,10 +35,9 @@ class App extends Component {
 
     async loadBlockchainData() {
         const onboarding = new MetaMaskOnboarding();
-
-        window.web3 = new Web3(window.ethereum)
         const web3 = window.web3
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+
         console.log(accounts[0])
         this.setState({account: accounts[0]})
         console.log('in line 41 after account address')
