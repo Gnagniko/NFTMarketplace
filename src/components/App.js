@@ -5,6 +5,7 @@ import KryptoBird from '../abis/Kryptobird.json';
 import {MDBCard, MDBCardBody, MDBCardTitle, 
     MDBCardText, MDBCardImage,MDBBtn} from 'mdb-react-ui-kit';
 import './App.css';
+import MetaMaskOnboarding from '@metamask/onboarding'
 
 
 class App extends Component {
@@ -18,25 +19,32 @@ class App extends Component {
         // first up is to detect ethereum provider (metamask)
         const provider = await detectEthereumProvider();
 
-        if(provider) {
+        if (provider === window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
             console.log('ethereum wallet is connected')
-            // From now on, this should always be true:
-            // provider === window.ethereum
-
-            // Legacy providers may only have ethereum.sendAsync
-            /*const chainId = await provider.request({
-                method: 'eth_chainId'
-            })*/
-        } else {
+          } else if (provider === window.web3) {
+            window.web3 = new Web3(window.web3.currentProvider);
+            console.log('ethereum wallet is connected')
+          } else {
             // no ethereum provider 
             console.log('no ehtereum wallet detected')
-        }
+          }
+
+          // if accounts changed load new Blockchain Data
+          if (MetaMaskOnboarding.isMetaMaskInstalled()) {
+            window.ethereum.on("accountsChanged", (newAccounts) => {
+                this.setState({account: newAccounts[0]})
+                this.loadBlockchainData();
+            });
+          }
     }
 
     async loadBlockchainData() {
+        const onboarding = new MetaMaskOnboarding();
+
         window.web3 = new Web3(window.ethereum)
         const web3 = window.web3
-        let accounts = await web3.eth.getAccounts()
+        let accounts = await window.web3.eth.getAccounts()
         console.log(accounts[0])
         this.setState({account: accounts[0]})
         console.log('in line 41 after account address')
