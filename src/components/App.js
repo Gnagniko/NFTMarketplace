@@ -36,8 +36,9 @@ class App extends Component {
     async loadBlockchainData() {
         const web3 = new Web3(window.ethereum)
         const accounts = await web3.eth.getAccounts()
+        console.log(accounts[0])
         this.setState({account: accounts[0]})
-
+        console.log('in line 41 after account address')
        
         
         // get networkId
@@ -70,7 +71,7 @@ class App extends Component {
         this.state.contract.methods.mint(kryptoBird).send({from:this.state.account})
         .once('receipt', (receipt) => {
             this.setState({
-                kryptoBirdz:[...this.state.kryptoBirdz, KryptoBird]
+                kryptoBirdz:[...this.state.kryptoBirdz, kryptoBird]
             })
         })
     }
