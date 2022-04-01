@@ -23,58 +23,96 @@ class App extends Component {
           } else {
               console.log("could not connect to metamask")
           }
-
-          // if accounts changed load new Blockchain Data
-          if (MetaMaskOnboarding.isMetaMaskInstalled()) {
-            window.ethereum.on("accountsChanged", (newAccounts) => {
-                this.setState({account: newAccounts[0]})
-                this.loadBlockchainData();
-            });
-          }
     }
 
+    // Metamask connection
     async loadBlockchainData() {
-        const web3 = window.web3
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const onboarding = new MetaMaskOnboarding();
+        const onboardButton = document.getElementById("connectWallet");
 
-        console.log(accounts[0])
-        this.setState({account: accounts[0]})
-        console.log('in line 41 after account address')
-       
-        
-        // get networkId
-        const networkId = await web3.eth.net.getId()
-        const networkData = KryptoBird.networks[networkId]
-        if(networkData) {
-            const abi = KryptoBird.abi; 
-            const address = networkData.address; 
-            const contract = new web3.eth.Contract(abi, address)
-            this.setState({contract})
+        if (!MetaMaskOnboarding.isMetaMaskInstalled()) {
+            onboardButton.innerText = "Install MetaMask!";
+            onboardButton.onclick = () => {
+            onboardButton.innerText = "Connecting...";
+            onboardButton.disabled = true;
+            onboarding.startOnboarding();
+            }
+        }
 
-            // call the total supply of our Krypto Birdz
-            const totalSupply = await contract.methods.totalSupply().call()
-            this.setState({totalSupply}) 
+        if (window.ethereum) {
+            window.web3 = new Web3(window.ethereum);
 
-            // set up an array to keep track of tokens
-            for(let i = 1; i <= totalSupply; i++) {
-                const KryptoBird = await contract.methods.kryptoBirdz(i - 1).call()
-                this.setState({
-                    kryptoBirdz:[...this.state.kryptoBirdz, KryptoBird]
-                })
+            const web3 = window.web3
+
+            // get networkId
+            const networkId = await web3.eth.net.getId()
+            const networkData = KryptoBird.networks[networkId]
+            if(networkData) {
+                const abi = KryptoBird.abi; 
+                const address = networkData.address; 
+                const contract = new web3.eth.Contract(abi, address)
+                this.setState({contract})
+
+                // call the total supply of our Krypto Birdz
+                const totalSupply = await contract.methods.totalSupply().call()
+                this.setState({totalSupply}) 
+
+                // set up an array to keep track of tokens
+                for(let i = 1; i <= totalSupply; i++) {
+                    // get nfts url
+                    const KryptoBird = await contract.methods.kryptoBirdz(i - 1).call()
+                    this.setState({
+                        kryptoBirdz:[...this.state.kryptoBirdz, KryptoBird]
+                    })
+
+                    // get nfts descriptions
+                    const kryptoMonsDescr = await contract.methods.kryptoMonsDecription(i - 1).call()
+                    this.setState({
+                        kryptoMonsDescrs:[...this.state.kryptoMonsDescrs, kryptoMonsDescr]
+                    })
+
+                    // get nfts owner
+                    const kryptoMonsOwner = await contract.methods.ownerOf(i - 1).call()
+                    this.setState({
+                        kryptoMonsOwners:[...this.state.kryptoMonsOwners, "..."+kryptoMonsOwner.slice(33,42)]
+                    })
+
+                    // get nfts name
+                    const kryptoMonsName = await contract.methods.kryptoMonsName(i - 1).call()
+                    this.setState({
+                        kryptoMonsNames:[...this.state.kryptoMonsNames, kryptoMonsName]
+                    })
+                }
+
+            } else {
+                window.alert('Smart contract not deployed')
             }
 
-        } else {
-            window.alert('Smart contract not deployed')
+            // connect to metamask
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+            onboardButton.innerText = accounts[0];
+            this.setState({account: accounts[0]})
         }
     }
 
-    mint = (kryptoBird) => {
-        this.state.contract.methods.mint(kryptoBird).send({from:this.state.account})
-        .once('receipt', (receipt) => {
+    mint = (kryptoBird, kryptoMonsDecr, krytoMonName) => {
+
+        if(this.state.account != ''){
+            this.state.contract.methods.mint(kryptoBird, kryptoMonsDecr, krytoMonName).send({from:this.state.account})
+                .once('receipt', (receipt) => {
             this.setState({
                 kryptoBirdz:[...this.state.kryptoBirdz, kryptoBird]
             })
-        })
+            this.setState({
+                kryptoMonsDescrs:[...this.state.kryptoMonsDescrs, kryptoMonsDecr]
+            })
+            this.setState({
+                kryptoMonsNames:[...this.state.kryptoMonsNames, krytoMonName]
+            })
+         })
+        }
+
     }
 
     constructor(props) {
@@ -83,42 +121,34 @@ class App extends Component {
             account: '',
             contract: null,
             totalSupply:0,
-            kryptoBirdz:[]
+            kryptoBirdz:[],
+            kryptoMonsDescrs:[],
+            kryptoMonsOwners:[],
+            kryptoMonsNames:[]
         }
     }
-
-    /*
-    async checkChain(){
-        // rinkeby chainId=4 , polygon chainId=137  
-        let chainId = 4;
-
-        if (window.ethereum.networkVersion !== chainId) {
-            try {
-              await window.ethereum.request({
-                method: 'wallet_switchEthereumChain',
-                params: [{ chainId: web3.utils.toHex(chainId) }],
-              });
-              this.loadBlockchainData();
-            } catch (err) {
-                // This error code indicates that the chain has not been added to MetaMask
-                console.log("Chain has not been add to MetaMask")
-            }
-        } 
-    }*/
 
     render(){
         return (
             <div className="container-filled">
-                <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow" >
+                    
                     <div className="navbar-brand col-sm-3 col-md-3 mr-0" style={{color:'white'}}>
-                        Krypto Birdz NFTs (Non Fungible Tokens)
+                        Krypto Mons NFTs (Non Fungible Tokens)
                     </div>
+                    <hr></hr>
+                    <a
+                        href="https://discord.gg/CTrwTaVW"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src="../images/header/discord.webp" alt="Discord" />
+                    </a>
+
                     <ul className="navbar- nav px-3">
-                        <li className="nacv-item text-nowrap d-none d-sm-none d-sm-block">
-                            <small className="text-white">
-                                {this.state.account}
-                            </small>
-                        </li>
+                        <button class="wallet-btn btn" id="connectWallet" style={{color:'white'}}>
+                            <span>Connect Wallet</span>
+                        </button>
                     </ul>
                 </nav>
 
@@ -127,16 +157,27 @@ class App extends Component {
                         <main role='main' className="col-lg-12 d-flex text-center">
                             <div className='content mr-auto ml-auto' style={{opacity:'0.8'}}>
                                 <h1 style={{color:'white'}}>
-                                    kryptoBirdz - NFT Marketplace
+                                    kryptoMons - NFT Marketplace
                                 </h1>
+                                <p style={{color:'white'}}>The KryptoMons NFT Project is a decentralized application, that allows you to create and launch your own NFTs.
+                                </p>
+                                <p style={{color:'white'}}>
+                                 Copy the url link of your digital art and pace it here.
+                                </p>
 
                                 <form onSubmit={(event) => {
                                     event.preventDefault()
                                     const kryptoBird = this.kryptoBird.value
-                                    this.mint(kryptoBird)
+                                    const kryptoMonDecr = this.kryptoMonDecr.value
+                                    const kryptoMonName = this.kryptoMonName.value
+                                    this.mint(kryptoBird, kryptoMonDecr, kryptoMonName)
                                 }}>
                                     <input type='text' placeholder='Add a file location' className='form-control mb-1'
                                     ref={(input) => this.kryptoBird = input}/>
+                                    <input type='text' placeholder='Add NFT name' className='form-control mb-1'
+                                    ref={(input) => this.kryptoMonName = input}/>
+                                    <textarea type='text' placeholder='Add NFT description' className='form-control mb-1'
+                                    ref={(input) => this.kryptoMonDecr = input}/>
                                     <input style={{margin:'6px'}} type='submit' className='btn btn-primary btn-black' value='MINT' />
                                 </form>
 
@@ -152,9 +193,21 @@ class App extends Component {
                                                 <MDBCard className="token img" style={{maxWidth:'22rem'}}>
                                                     <MDBCardImage src={kryptoBird} position='top' heigh='250rem' style={{marginRight:'4px'}} />
                                                     <MDBCardBody>
-                                                        <MDBCardTitle> kryptoBirdz </MDBCardTitle>
-                                                        <MDBCardText> This is one of 20 funtokens. Especialy made for friends to flex.</MDBCardText>
-                                                        <MDBBtn href={kryptoBird}>Download</MDBBtn>
+                                                       
+                                                        <MDBCardTitle class="card_title" tag="h3"> {this.state.kryptoMonsNames[key]} </MDBCardTitle>
+                                                        <form class="form-inline">
+                                                            <MDBCardText class="action_btn">Created by: </MDBCardText>
+                    
+                                                            <MDBCardText class="action_btn">{this.state.kryptoMonsOwners[key]} </MDBCardText>
+                                                        </form>
+                                                        <hr></hr>
+                                                        <MDBCardText> {this.state.kryptoMonsDescrs[key]} </MDBCardText>
+                                                        
+                                                        <form class="form-inline">
+                                                            <MDBBtn href={kryptoBird} class="action_btn ">Download</MDBBtn>
+                                                            <MDBBtn href={kryptoBird} class="action_btn ">Buy</MDBBtn>
+                                                        </form>
+                                                        
                                                     </MDBCardBody>
                                                 </MDBCard>
                                             </div>
@@ -163,7 +216,6 @@ class App extends Component {
                                 })}
                                 
                             </div>
-
                 </div>
             </div>
         )

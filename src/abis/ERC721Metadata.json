@@ -4644,10 +4644,10 @@
         601
       ],
       "IERC165": [
-        726
+        748
       ],
       "IERC721Metadata": [
-        807
+        829
       ]
     },
     "id": 602,
@@ -4672,7 +4672,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 602,
-        "sourceUnit": 808,
+        "sourceUnit": 830,
         "src": "60:42:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -4697,7 +4697,7 @@
               "id": 548,
               "name": "IERC721Metadata",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 807,
+              "referencedDeclaration": 829,
               "src": "157:15:4"
             },
             "id": 549,
@@ -4725,8 +4725,8 @@
         "linearizedBaseContracts": [
           601,
           41,
-          726,
-          807
+          748,
+          829
         ],
         "name": "ERC721Metadata",
         "nameLocation": "139:14:4",
@@ -5169,7 +5169,7 @@
           },
           {
             "baseFunctions": [
-              800
+              822
             ],
             "body": {
               "id": 591,
@@ -5252,7 +5252,7 @@
           },
           {
             "baseFunctions": [
-              806
+              828
             ],
             "body": {
               "id": 599,
@@ -5351,10 +5351,10 @@
         601
       ],
       "IERC165": [
-        726
+        748
       ],
       "IERC721Metadata": [
-        807
+        829
       ]
     },
     "id": 602,
@@ -5379,7 +5379,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 602,
-        "sourceUnit": 808,
+        "sourceUnit": 830,
         "src": "60:42:4",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5404,7 +5404,7 @@
               "id": 548,
               "name": "IERC721Metadata",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 807,
+              "referencedDeclaration": 829,
               "src": "157:15:4"
             },
             "id": 549,
@@ -5432,8 +5432,8 @@
         "linearizedBaseContracts": [
           601,
           41,
-          726,
-          807
+          748,
+          829
         ],
         "name": "ERC721Metadata",
         "nameLocation": "139:14:4",
@@ -5876,7 +5876,7 @@
           },
           {
             "baseFunctions": [
-              800
+              822
             ],
             "body": {
               "id": 591,
@@ -5959,7 +5959,7 @@
           },
           {
             "baseFunctions": [
-              806
+              828
             ],
             "body": {
               "id": 599,
@@ -6054,7 +6054,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.6",
-  "updatedAt": "2022-03-31T14:40:30.097Z",
+  "updatedAt": "2022-04-01T09:04:19.191Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

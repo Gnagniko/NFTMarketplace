@@ -5898,10 +5898,10 @@
         350
       ],
       "IERC165": [
-        726
+        748
       ],
       "IERC721": [
-        768
+        790
       ]
     },
     "id": 351,
@@ -5938,7 +5938,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 351,
-        "sourceUnit": 769,
+        "sourceUnit": 791,
         "src": "84:34:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5963,7 +5963,7 @@
               "id": 48,
               "name": "IERC721",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 768,
+              "referencedDeclaration": 790,
               "src": "497:7:1"
             },
             "id": 49,
@@ -5978,9 +5978,9 @@
         "id": 350,
         "linearizedBaseContracts": [
           350,
-          768,
+          790,
           41,
-          726
+          748
         ],
         "name": "ERC721",
         "nameLocation": "479:6:1",
@@ -6438,7 +6438,7 @@
           },
           {
             "baseFunctions": [
-              751
+              773
             ],
             "body": {
               "id": 104,
@@ -6735,7 +6735,7 @@
           },
           {
             "baseFunctions": [
-              758
+              780
             ],
             "body": {
               "id": 132,
@@ -7880,7 +7880,7 @@
                       "name": "Transfer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 736,
+                      "referencedDeclaration": 758,
                       "src": "2358:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -8562,7 +8562,7 @@
                       "name": "Transfer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 736,
+                      "referencedDeclaration": 758,
                       "src": "3398:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -8707,7 +8707,7 @@
           },
           {
             "baseFunctions": [
-              767
+              789
             ],
             "body": {
               "id": 279,
@@ -9484,7 +9484,7 @@
                       "name": "Approval",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 744,
+                      "referencedDeclaration": 766,
                       "src": "4226:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -9991,10 +9991,10 @@
         350
       ],
       "IERC165": [
-        726
+        748
       ],
       "IERC721": [
-        768
+        790
       ]
     },
     "id": 351,
@@ -10031,7 +10031,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 351,
-        "sourceUnit": 769,
+        "sourceUnit": 791,
         "src": "84:34:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -10056,7 +10056,7 @@
               "id": 48,
               "name": "IERC721",
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 768,
+              "referencedDeclaration": 790,
               "src": "497:7:1"
             },
             "id": 49,
@@ -10071,9 +10071,9 @@
         "id": 350,
         "linearizedBaseContracts": [
           350,
-          768,
+          790,
           41,
-          726
+          748
         ],
         "name": "ERC721",
         "nameLocation": "479:6:1",
@@ -10531,7 +10531,7 @@
           },
           {
             "baseFunctions": [
-              751
+              773
             ],
             "body": {
               "id": 104,
@@ -10828,7 +10828,7 @@
           },
           {
             "baseFunctions": [
-              758
+              780
             ],
             "body": {
               "id": 132,
@@ -11973,7 +11973,7 @@
                       "name": "Transfer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 736,
+                      "referencedDeclaration": 758,
                       "src": "2358:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -12655,7 +12655,7 @@
                       "name": "Transfer",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 736,
+                      "referencedDeclaration": 758,
                       "src": "3398:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -12800,7 +12800,7 @@
           },
           {
             "baseFunctions": [
-              767
+              789
             ],
             "body": {
               "id": 279,
@@ -13577,7 +13577,7 @@
                       "name": "Approval",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 744,
+                      "referencedDeclaration": 766,
                       "src": "4226:8:1",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_event_nonpayable$_t_address_$_t_address_$_t_uint256_$returns$__$",
@@ -14080,7 +14080,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.6",
-  "updatedAt": "2022-03-31T14:40:29.989Z",
+  "updatedAt": "2022-04-01T09:04:19.091Z",
   "devdoc": {
     "kind": "dev",
     "methods": {

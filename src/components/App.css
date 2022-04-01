@@ -45,3 +45,20 @@ img {
     text-align: center;
     top: 15%;
 }
+  
+.action_btn {
+    display: inline-block;
+    width: calc(50% - 4px);
+    margin: 0 auto;
+}
+
+.card_title {
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  
